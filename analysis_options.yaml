@@ -1,28 +1,126 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
-#
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
-
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  exclude:
+    - build/**
+    - lib/src/core/presentation/i18n/**
+    # - lib/**.g.dart
+    - '**/*.g.dart'
+    - lib/generated_plugin_registrant.dart
+  language:
+    strict-casts: false
+    strict-raw-types: true
+    strict-inference: true
+  errors:
+    avoid_empty_else: error
+    always_use_package_imports: error
+    always_declare_return_types: warning
+    avoid_function_literals_in_foreach_calls: warning
+    avoid_print: warning
+    avoid_slow_async_io: error
+    avoid_type_to_string: warning
+    camel_case_types: warning
+    cancel_subscriptions: error
+    dead_code: error
+    discarded_futures: warning
+    missing_return: error
+    prefer_final_fields: warning
+    prefer_final_locals: warning
+    file_names: warning
+    flutter_style_todos: warning
+    iterable_contains_unrelated_type: error
+    list_remove_unrelated_type: error
+    no_duplicate_case_values: error
+    no_leading_underscores_for_local_identifiers: warning
+    prefer_contains: warning
+    prefer_single_quotes: warning
+    prefer_double_quotes: warning
+    prefer_interpolation_to_compose_strings: warning
+    sized_box_for_whitespace: warning
+    type_init_formals: error
+    unawaited_futures: error
+    unnecessary_statements: error
+    unused_import: warning
+    use_decorated_box: warning
+    use_is_even_rather_than_modulo: warning
+    use_build_context_synchronously: warning
+    non_constant_identifier_names: warning
+    invalid_annotation_target: ignore
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
   # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
+
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    use_setters_to_change_properties: true
+    close_sinks: true
+    comment_references: true
+    one_member_abstracts: true
+    only_throw_errors: true
+    package_api_docs: true
+    prefer_single_quotes: true
+    prefer_double_quotes: false
+    avoid_empty_else: true
+    avoid_types_on_closure_parameters: true
+    always_use_package_imports: true
+    always_declare_return_types: true
+    avoid_multiple_declarations_per_line: true
+    avoid_init_to_null: true
+    avoid_function_literals_in_foreach_calls: true
+    avoid_print: true
+    always_put_control_body_on_new_line: true
+    always_put_required_named_parameters_first: true
+    avoid_returning_this: true
+    avoid_setters_without_getters: true
+    avoid_slow_async_io: true
+    avoid_type_to_string: true
+    avoid_unnecessary_containers: true
+    camel_case_types: true
+    cancel_subscriptions: true
+    constant_identifier_names: true
+    curly_braces_in_flow_control_structures: true
+    directives_ordering: true
+    discarded_futures: true
+    empty_constructor_bodies: true
+    file_names: true
+    flutter_style_todos: true
+    leading_newlines_in_multiline_strings: true
+    library_names: true
+    no_duplicate_case_values: true
+    no_leading_underscores_for_local_identifiers: true
+    prefer_adjacent_string_concatenation: true
+    prefer_collection_literals: true
+    prefer_contains: true
+    prefer_constructors_over_static_methods: true
+    prefer_final_in_for_each: true
+    prefer_final_fields: true
+    prefer_final_locals: true
+    prefer_interpolation_to_compose_strings: true
+    prefer_is_empty: true
+    prefer_is_not_empty: true
+    prefer_is_not_operator: true
+    prefer_spread_collections: true
+    sized_box_for_whitespace: true
+    sized_box_shrink_expand: true
+    slash_for_doc_comments: true
+    sort_pub_dependencies: true
+    sort_child_properties_last: true
+    type_init_formals: true
+    unawaited_futures: true
+    use_colored_box: true
+    unnecessary_const: true
+    unnecessary_new: true
+    unnecessary_null_in_if_null_operators: true
+    unnecessary_parenthesis: true
+    unnecessary_statements: true
+    use_decorated_box: true
+    use_enums: true
+    use_is_even_rather_than_modulo: true
+    use_named_constants: true
+    use_build_context_synchronously: true
+    non_constant_identifier_names: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
