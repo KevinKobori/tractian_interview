@@ -1,6 +1,32 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:tractian_interview/core/repositories/company_repository.dart';
 
-void main() {
+final options = BaseOptions(
+  baseUrl: 'https://fake-api.tractian.com',
+  connectTimeout: const Duration(milliseconds: 10000),
+  receiveTimeout: const Duration(milliseconds: 10000),
+);
+
+final dio = Dio(options);
+
+final repository = CompanyRepository(dio);
+
+void main() async {
+  try {
+    final companies = await repository.getAllCompanies();
+    print('Companies: $companies');
+
+    const companyId = '123';
+
+    final locations = await repository.getCompanyLocations(companyId);
+    print('Locations for company $companyId: $locations');
+
+    final assets = await repository.getCompanyAssets(companyId);
+    print('Assets for company $companyId: $assets');
+  } catch (e) {
+    print(e);
+  }
   runApp(const MyApp());
 }
 
