@@ -1,31 +1,20 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:tractian_interview/core/configuration/constants/app_dot_env.dart';
+import 'package:tractian_interview/core/configuration/constants/api.dart';
+import 'package:tractian_interview/core/configuration/constants/dot_env.dart';
 import 'package:tractian_interview/core/repositories/company_repository.dart';
 
 Future<void> _startSingletons() async {
-  await AppDotEnv.initialize();
+  await DotEnv.initialize();
+  await Api.initialize();
 }
 
-final options = BaseOptions(
-  baseUrl: AppDotEnv.instance.baseURL,
-  connectTimeout: const Duration(milliseconds: 10000),
-  receiveTimeout: const Duration(milliseconds: 10000),
-);
-
-final dio = Dio(options);
-
-final repository = CompanyRepository(dio);
+final repository = CompanyRepository(Dio(Api.instance.options));
 
 void main() async {
   await _startSingletons();
-  log(AppDotEnv.instance.baseURL);
   runApp(const App());
 }
-
-const appTitle = 'TRACTIAN';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -33,12 +22,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: appTitle,
+      title: DotEnv.instance.appTitle,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: appTitle),
+      home: MyHomePage(title: DotEnv.instance.appTitle),
     );
   }
 }
