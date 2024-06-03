@@ -21,8 +21,13 @@ AssetModel _$AssetModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AssetModel {
   String get id => throw _privateConstructorUsedError;
+  String? get locationId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get parentId => throw _privateConstructorUsedError;
+  String? get sensorType => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  String? get gatewayId => throw _privateConstructorUsedError;
+  String? get sensorId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +41,15 @@ abstract class $AssetModelCopyWith<$Res> {
           AssetModel value, $Res Function(AssetModel) then) =
       _$AssetModelCopyWithImpl<$Res, AssetModel>;
   @useResult
-  $Res call({String id, String name, String? parentId});
+  $Res call(
+      {String id,
+      String? locationId,
+      String name,
+      String? parentId,
+      String? sensorType,
+      String? status,
+      String? gatewayId,
+      String? sensorId});
 }
 
 /// @nodoc
@@ -53,14 +66,23 @@ class _$AssetModelCopyWithImpl<$Res, $Val extends AssetModel>
   @override
   $Res call({
     Object? id = null,
+    Object? locationId = freezed,
     Object? name = null,
     Object? parentId = freezed,
+    Object? sensorType = freezed,
+    Object? status = freezed,
+    Object? gatewayId = freezed,
+    Object? sensorId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      locationId: freezed == locationId
+          ? _value.locationId
+          : locationId // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -68,6 +90,22 @@ class _$AssetModelCopyWithImpl<$Res, $Val extends AssetModel>
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sensorType: freezed == sensorType
+          ? _value.sensorType
+          : sensorType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gatewayId: freezed == gatewayId
+          ? _value.gatewayId
+          : gatewayId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sensorId: freezed == sensorId
+          ? _value.sensorId
+          : sensorId // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -81,7 +119,15 @@ abstract class _$$AssetModelImplCopyWith<$Res>
       __$$AssetModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String? parentId});
+  $Res call(
+      {String id,
+      String? locationId,
+      String name,
+      String? parentId,
+      String? sensorType,
+      String? status,
+      String? gatewayId,
+      String? sensorId});
 }
 
 /// @nodoc
@@ -96,14 +142,23 @@ class __$$AssetModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? locationId = freezed,
     Object? name = null,
     Object? parentId = freezed,
+    Object? sensorType = freezed,
+    Object? status = freezed,
+    Object? gatewayId = freezed,
+    Object? sensorId = freezed,
   }) {
     return _then(_$AssetModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      locationId: freezed == locationId
+          ? _value.locationId
+          : locationId // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -111,6 +166,22 @@ class __$$AssetModelImplCopyWithImpl<$Res>
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sensorType: freezed == sensorType
+          ? _value.sensorType
+          : sensorType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gatewayId: freezed == gatewayId
+          ? _value.gatewayId
+          : gatewayId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sensorId: freezed == sensorId
+          ? _value.sensorId
+          : sensorId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -120,7 +191,14 @@ class __$$AssetModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AssetModelImpl implements _AssetModel {
   const _$AssetModelImpl(
-      {required this.id, required this.name, required this.parentId});
+      {required this.id,
+      required this.locationId,
+      required this.name,
+      required this.parentId,
+      required this.sensorType,
+      required this.status,
+      this.gatewayId,
+      this.sensorId});
 
   factory _$AssetModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AssetModelImplFromJson(json);
@@ -128,13 +206,23 @@ class _$AssetModelImpl implements _AssetModel {
   @override
   final String id;
   @override
+  final String? locationId;
+  @override
   final String name;
   @override
   final String? parentId;
+  @override
+  final String? sensorType;
+  @override
+  final String? status;
+  @override
+  final String? gatewayId;
+  @override
+  final String? sensorId;
 
   @override
   String toString() {
-    return 'AssetModel(id: $id, name: $name, parentId: $parentId)';
+    return 'AssetModel(id: $id, locationId: $locationId, name: $name, parentId: $parentId, sensorType: $sensorType, status: $status, gatewayId: $gatewayId, sensorId: $sensorId)';
   }
 
   @override
@@ -143,14 +231,24 @@ class _$AssetModelImpl implements _AssetModel {
         (other.runtimeType == runtimeType &&
             other is _$AssetModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.locationId, locationId) ||
+                other.locationId == locationId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.parentId, parentId) ||
-                other.parentId == parentId));
+                other.parentId == parentId) &&
+            (identical(other.sensorType, sensorType) ||
+                other.sensorType == sensorType) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.gatewayId, gatewayId) ||
+                other.gatewayId == gatewayId) &&
+            (identical(other.sensorId, sensorId) ||
+                other.sensorId == sensorId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, parentId);
+  int get hashCode => Object.hash(runtimeType, id, locationId, name, parentId,
+      sensorType, status, gatewayId, sensorId);
 
   @JsonKey(ignore: true)
   @override
@@ -169,8 +267,13 @@ class _$AssetModelImpl implements _AssetModel {
 abstract class _AssetModel implements AssetModel {
   const factory _AssetModel(
       {required final String id,
+      required final String? locationId,
       required final String name,
-      required final String? parentId}) = _$AssetModelImpl;
+      required final String? parentId,
+      required final String? sensorType,
+      required final String? status,
+      final String? gatewayId,
+      final String? sensorId}) = _$AssetModelImpl;
 
   factory _AssetModel.fromJson(Map<String, dynamic> json) =
       _$AssetModelImpl.fromJson;
@@ -178,9 +281,19 @@ abstract class _AssetModel implements AssetModel {
   @override
   String get id;
   @override
+  String? get locationId;
+  @override
   String get name;
   @override
   String? get parentId;
+  @override
+  String? get sensorType;
+  @override
+  String? get status;
+  @override
+  String? get gatewayId;
+  @override
+  String? get sensorId;
   @override
   @JsonKey(ignore: true)
   _$$AssetModelImplCopyWith<_$AssetModelImpl> get copyWith =>
