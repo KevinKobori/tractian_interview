@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar.dart';
 
 class MenuPageLoadedFailureView extends StatelessWidget {
   final String failureMessage;
@@ -13,7 +14,7 @@ class MenuPageLoadedFailureView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('TRACTIAN')),
+      appBar: const ChallengeAppBar(),
       body: Center(child: Text(failureMessage)),
     );
   }

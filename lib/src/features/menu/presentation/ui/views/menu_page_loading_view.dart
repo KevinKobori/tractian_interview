@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar.dart';
 
 class MenuPageLoadingView extends StatelessWidget {
   const MenuPageLoadingView({
@@ -7,11 +8,9 @@ class MenuPageLoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('TRACTIAN'),
-      ),
-      body: const Center(child: CircularProgressIndicator.adaptive()),
+    return const Scaffold(
+      appBar: ChallengeAppBar(),
+      body: Center(child: CircularProgressIndicator.adaptive()),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tractian_interview/src/design_system/app_blanc_box.dart';
+import 'package:tractian_interview/src/design_system/atoms/challenge_blanc_box.dart';
 import 'package:tractian_interview/src/features/menu/presentation/presenter/menu_page_bloc.dart';
 import 'package:tractian_interview/src/features/menu/presentation/presenter/menu_page_event.dart';
 import 'package:tractian_interview/src/features/menu/presentation/presenter/menu_page_presenter.dart';
@@ -50,7 +50,7 @@ class _MenuPageState extends State<MenuPage> {
                 bloc.add(PushToCompanyAssetsPage(companyId)),
           );
         } else {
-          return const AppBlancBox();
+          return const ChallengeBlancBox();
         }
       },
     );

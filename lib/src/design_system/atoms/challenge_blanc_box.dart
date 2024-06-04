@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-class AppBlancBox extends StatelessWidget {
-  const AppBlancBox({
+class ChallengeBlancBox extends StatelessWidget {
+  const ChallengeBlancBox({
     super.key,
   });
 
