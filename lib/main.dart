@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:tractian_interview/core/configuration/app_builder.dart';
 import 'package:tractian_interview/core/configuration/constants/api.dart';
 import 'package:tractian_interview/core/configuration/constants/dot_env.dart';
 import 'package:tractian_interview/core/repositories/company_repository.dart';
@@ -16,23 +17,7 @@ final companyRepository = CompanyRepository(
 
 void main() async {
   await _startSingletons();
-  runApp(const App());
-}
-
-class App extends StatelessWidget {
-  const App({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: DotEnv.instance.appTitle,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: HomePage(title: DotEnv.instance.appTitle),
-    );
-  }
+  runApp(AppBuilder(appTitle: DotEnv.instance.appTitle));
 }
 
 class HomePage extends StatefulWidget {
