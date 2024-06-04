@@ -4,5 +4,5 @@ import 'package:tractian_interview/src/features/menu/presentation/presenter/menu
 
 abstract class MenuPagePresenter {
   Future<void> onLoadAllCompanies(Emitter<MenuPageState> emit);
-  void onGoToCompanyAssetsPage(GoToCompanyAssetsPage event);
+  void onPushToCompanyAssetsPage(PushToCompanyAssetsPage event);
 }

@@ -15,8 +15,10 @@ class AppBuilder extends StatelessWidget {
     return MaterialApp(
       title: appTitle,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF17192D),
+          foregroundColor: Colors.white,
+        ),
       ),
       home: initialPage,
     );

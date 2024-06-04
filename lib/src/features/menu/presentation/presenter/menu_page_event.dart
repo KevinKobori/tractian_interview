@@ -11,10 +11,10 @@ class LoadAllCompanies extends MenuPageEvent {
   List<Object?> get props => [];
 }
 
-class GoToCompanyAssetsPage extends MenuPageEvent {
+class PushToCompanyAssetsPage extends MenuPageEvent {
   final String companyId;
 
-  const GoToCompanyAssetsPage(this.companyId);
+  const PushToCompanyAssetsPage(this.companyId);
 
   @override
   List<Object?> get props => [
