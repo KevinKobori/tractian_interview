@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tractian_interview/src/core/data/models/company_model.dart';
 
@@ -13,6 +15,7 @@ class MenuPageLoadedSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(companies.toString());
     return Scaffold(
       appBar: AppBar(title: const Text('TRACTIAN')),
       body: ListView(),

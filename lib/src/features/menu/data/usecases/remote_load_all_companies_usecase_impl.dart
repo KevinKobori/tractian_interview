@@ -6,15 +6,15 @@ import 'package:tractian_interview/src/features/menu/domain/usecases/remote_load
 
 class RemoteLoadAllCompaniesUseCaseImpl
     implements RemoteLoadAllCompaniesUseCase {
-  final CompanyRepository conmpanyRepository;
+  final CompanyRepository companyRepository;
 
   RemoteLoadAllCompaniesUseCaseImpl({
-    required this.conmpanyRepository,
+    required this.companyRepository,
   });
 
   @override
   Future<Either<DomainFailure, List<CompanyModel>>> call(void _) async {
-    final repositoryResult = await conmpanyRepository.getAllCompanies();
+    final repositoryResult = await companyRepository.getAllCompanies();
 
     return repositoryResult;
   }
