@@ -1,4 +1,4 @@
-import 'package:tractian_interview/core/configuration/constants/env_mode.dart';
+import 'package:tractian_interview/src/core/configuration/constants/env_mode.dart';
 
 class DotEnv {
   DotEnv._internal();

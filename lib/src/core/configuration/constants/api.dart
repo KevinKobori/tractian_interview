@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:tractian_interview/core/configuration/constants/dot_env.dart';
+import 'package:tractian_interview/src/core/configuration/constants/dot_env.dart';
 
 class Api {
   Api._internal();

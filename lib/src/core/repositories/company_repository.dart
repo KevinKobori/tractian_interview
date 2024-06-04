@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:tractian_interview/core/configuration/constants/api.dart';
-import 'package:tractian_interview/core/models/asset_model.dart';
-import 'package:tractian_interview/core/models/company_model.dart';
-import 'package:tractian_interview/core/models/location_model.dart';
+import 'package:tractian_interview/src/core/configuration/constants/api.dart';
+import 'package:tractian_interview/src/core/models/asset_model.dart';
+import 'package:tractian_interview/src/core/models/company_model.dart';
+import 'package:tractian_interview/src/core/models/location_model.dart';
 
 class CompanyRepository {
   final Dio apiRequest;

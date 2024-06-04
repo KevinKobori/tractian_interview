@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tractian_interview/core/configuration/constants/dot_env.dart';
-import 'package:tractian_interview/main.dart';
 
 class AppBuilder extends StatelessWidget {
   final String appTitle;
+  final Widget initialPage;
+
   const AppBuilder({
     required this.appTitle,
+    required this.initialPage,
     super.key,
   });
 
@@ -17,7 +18,7 @@ class AppBuilder extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomePage(title: DotEnv.instance.appTitle),
+      home: initialPage,
     );
   }
 }
