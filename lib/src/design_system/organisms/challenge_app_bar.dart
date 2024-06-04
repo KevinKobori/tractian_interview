@@ -24,7 +24,7 @@ class ChallengeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               height: ChallegeMetrics.tileIconSize,
               width: ChallegeMetrics.tileIconSize,
-              'assets/logo.svg',
+              'images/logo.svg',
             ),
     );
   }

@@ -5,7 +5,7 @@ class DomainFailure extends Equatable implements Exception {
 
   const DomainFailure._(this.reasonPhrase);
 
-  const DomainFailure.unexpected() : this._('Unexpected error occurred.');
+  const DomainFailure.unexpected() : this._('Ocorreu um erro inesperado.');
 
   @override
   String toString() => '''
