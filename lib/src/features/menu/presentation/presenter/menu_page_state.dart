@@ -1,4 +1,4 @@
-import 'package:tractian_interview/src/core/models/company_model.dart';
+import 'package:tractian_interview/src/core/data/models/company_model.dart';
 
 abstract class MenuPageState {}
 
