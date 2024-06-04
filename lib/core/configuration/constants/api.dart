@@ -20,11 +20,8 @@ class Api {
   late BaseOptions _options;
   BaseOptions get options => _options;
 
-  String companies() => '/companies';
-
-  String locations(String companyId) => '/companies/$companyId/locations';
-
-  String assets(String companyId) => '/companies/$companyId/assets';
+  late ApiPaths _paths;
+  ApiPaths get paths => _paths;
 
   Future<void> _initialize() async {
     await _loadApiConfig();
@@ -36,5 +33,23 @@ class Api {
       connectTimeout: Duration(milliseconds: DotEnv.instance.connectTimeout),
       receiveTimeout: Duration(milliseconds: DotEnv.instance.connectTimeout),
     );
+
+    _paths = ApiPaths();
   }
+}
+
+class ApiPaths {
+  ApiPaths() : _company = ApiCompanyPaths();
+
+  final ApiCompanyPaths _company;
+  ApiCompanyPaths get company => _company;
+}
+
+class ApiCompanyPaths {
+  String companies() => '/companies';
+
+  String companyLocations(String companyId) =>
+      '/companies/$companyId/locations';
+
+  String companyAssets(String companyId) => '/companies/$companyId/assets';
 }

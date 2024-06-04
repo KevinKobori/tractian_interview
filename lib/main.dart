@@ -9,7 +9,10 @@ Future<void> _startSingletons() async {
   await Api.initialize();
 }
 
-final repository = CompanyRepository(Dio(Api.instance.options));
+final companyRepository = CompanyRepository(
+  apiRequest: Dio(Api.instance.options),
+  apiPaths: Api.instance.paths.company,
+);
 
 void main() async {
   await _startSingletons();
@@ -27,21 +30,21 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: DotEnv.instance.appTitle),
+      home: HomePage(title: DotEnv.instance.appTitle),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({required this.title, super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({required this.title, super.key});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
