@@ -4,8 +4,8 @@ import 'package:tractian_interview/src/core/data/models/company_model.dart';
 import 'package:tractian_interview/src/core/data/models/location_model.dart';
 import 'package:tractian_interview/src/core/domain/failures/domain_failure.dart';
 
-mixin CompanyRepository {
-  Future<Either<DomainFailure, List<CompanyModel>>> getAllCompanies();
+mixin CompanyUnitRepository {
+  Future<Either<DomainFailure, List<CompanyUnitModel>>> getAllCompanies();
 
   Future<Either<DomainFailure, List<LocationModel>>> getCompanyLocations(
       String companyId);

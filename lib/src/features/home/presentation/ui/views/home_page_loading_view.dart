@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar.dart';
 
-class MenuPageLoadingView extends StatelessWidget {
-  const MenuPageLoadingView({
+class HomePageLoadingView extends StatelessWidget {
+  const HomePageLoadingView({
     super.key,
   });
 

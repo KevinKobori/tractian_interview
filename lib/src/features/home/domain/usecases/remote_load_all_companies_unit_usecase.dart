@@ -3,8 +3,8 @@ import 'package:tractian_interview/src/core/data/models/company_model.dart';
 import 'package:tractian_interview/src/core/domain/failures/domain_failure.dart';
 import 'package:tractian_interview/src/core/domain/usecases/usecase.dart';
 
-mixin RemoteLoadAllCompaniesUseCase
-    implements UseCase<DomainFailure, List<CompanyModel>, void> {
+mixin RemoteLoadAllCompaniesUnitUseCase
+    implements UseCase<DomainFailure, List<CompanyUnitModel>, void> {
   @override
-  Future<Either<DomainFailure, List<CompanyModel>>> call(void _);
+  Future<Either<DomainFailure, List<CompanyUnitModel>>> call(void _);
 }

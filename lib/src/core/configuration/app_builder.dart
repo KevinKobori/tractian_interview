@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tractian_interview/src/core/configuration/constants/dot_env.dart';
 
 class AppBuilder extends StatelessWidget {
-  final String appTitle;
   final Widget initialPage;
 
   const AppBuilder({
-    required this.appTitle,
     required this.initialPage,
     super.key,
   });
@@ -13,7 +12,7 @@ class AppBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: appTitle,
+      title: DotEnv.instance.appTitle,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF17192D),

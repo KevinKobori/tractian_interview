@@ -14,34 +14,34 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-CompanyModel _$CompanyModelFromJson(Map<String, dynamic> json) {
-  return _CompanyModel.fromJson(json);
+CompanyUnitModel _$CompanyUnitModelFromJson(Map<String, dynamic> json) {
+  return _CompanyUnitModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CompanyModel {
+mixin _$CompanyUnitModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CompanyModelCopyWith<CompanyModel> get copyWith =>
+  $CompanyUnitModelCopyWith<CompanyUnitModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CompanyModelCopyWith<$Res> {
-  factory $CompanyModelCopyWith(
-          CompanyModel value, $Res Function(CompanyModel) then) =
-      _$CompanyModelCopyWithImpl<$Res, CompanyModel>;
+abstract class $CompanyUnitModelCopyWith<$Res> {
+  factory $CompanyUnitModelCopyWith(
+          CompanyUnitModel value, $Res Function(CompanyUnitModel) then) =
+      _$CompanyUnitModelCopyWithImpl<$Res, CompanyUnitModel>;
   @useResult
   $Res call({String id, String name});
 }
 
 /// @nodoc
-class _$CompanyModelCopyWithImpl<$Res, $Val extends CompanyModel>
-    implements $CompanyModelCopyWith<$Res> {
-  _$CompanyModelCopyWithImpl(this._value, this._then);
+class _$CompanyUnitModelCopyWithImpl<$Res, $Val extends CompanyUnitModel>
+    implements $CompanyUnitModelCopyWith<$Res> {
+  _$CompanyUnitModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -68,22 +68,22 @@ class _$CompanyModelCopyWithImpl<$Res, $Val extends CompanyModel>
 }
 
 /// @nodoc
-abstract class _$$CompanyModelImplCopyWith<$Res>
-    implements $CompanyModelCopyWith<$Res> {
-  factory _$$CompanyModelImplCopyWith(
-          _$CompanyModelImpl value, $Res Function(_$CompanyModelImpl) then) =
-      __$$CompanyModelImplCopyWithImpl<$Res>;
+abstract class _$$CompanyUnitModelImplCopyWith<$Res>
+    implements $CompanyUnitModelCopyWith<$Res> {
+  factory _$$CompanyUnitModelImplCopyWith(_$CompanyUnitModelImpl value,
+          $Res Function(_$CompanyUnitModelImpl) then) =
+      __$$CompanyUnitModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String name});
 }
 
 /// @nodoc
-class __$$CompanyModelImplCopyWithImpl<$Res>
-    extends _$CompanyModelCopyWithImpl<$Res, _$CompanyModelImpl>
-    implements _$$CompanyModelImplCopyWith<$Res> {
-  __$$CompanyModelImplCopyWithImpl(
-      _$CompanyModelImpl _value, $Res Function(_$CompanyModelImpl) _then)
+class __$$CompanyUnitModelImplCopyWithImpl<$Res>
+    extends _$CompanyUnitModelCopyWithImpl<$Res, _$CompanyUnitModelImpl>
+    implements _$$CompanyUnitModelImplCopyWith<$Res> {
+  __$$CompanyUnitModelImplCopyWithImpl(_$CompanyUnitModelImpl _value,
+      $Res Function(_$CompanyUnitModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$CompanyModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
   }) {
-    return _then(_$CompanyModelImpl(
+    return _then(_$CompanyUnitModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -107,11 +107,11 @@ class __$$CompanyModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CompanyModelImpl implements _CompanyModel {
-  const _$CompanyModelImpl({required this.id, required this.name});
+class _$CompanyUnitModelImpl implements _CompanyUnitModel {
+  const _$CompanyUnitModelImpl({required this.id, required this.name});
 
-  factory _$CompanyModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CompanyModelImplFromJson(json);
+  factory _$CompanyUnitModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CompanyUnitModelImplFromJson(json);
 
   @override
   final String id;
@@ -120,14 +120,14 @@ class _$CompanyModelImpl implements _CompanyModel {
 
   @override
   String toString() {
-    return 'CompanyModel(id: $id, name: $name)';
+    return 'CompanyUnitModel(id: $id, name: $name)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CompanyModelImpl &&
+            other is _$CompanyUnitModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -139,24 +139,25 @@ class _$CompanyModelImpl implements _CompanyModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CompanyModelImplCopyWith<_$CompanyModelImpl> get copyWith =>
-      __$$CompanyModelImplCopyWithImpl<_$CompanyModelImpl>(this, _$identity);
+  _$$CompanyUnitModelImplCopyWith<_$CompanyUnitModelImpl> get copyWith =>
+      __$$CompanyUnitModelImplCopyWithImpl<_$CompanyUnitModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CompanyModelImplToJson(
+    return _$$CompanyUnitModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _CompanyModel implements CompanyModel {
-  const factory _CompanyModel(
+abstract class _CompanyUnitModel implements CompanyUnitModel {
+  const factory _CompanyUnitModel(
       {required final String id,
-      required final String name}) = _$CompanyModelImpl;
+      required final String name}) = _$CompanyUnitModelImpl;
 
-  factory _CompanyModel.fromJson(Map<String, dynamic> json) =
-      _$CompanyModelImpl.fromJson;
+  factory _CompanyUnitModel.fromJson(Map<String, dynamic> json) =
+      _$CompanyUnitModelImpl.fromJson;
 
   @override
   String get id;
@@ -164,6 +165,6 @@ abstract class _CompanyModel implements CompanyModel {
   String get name;
   @override
   @JsonKey(ignore: true)
-  _$$CompanyModelImplCopyWith<_$CompanyModelImpl> get copyWith =>
+  _$$CompanyUnitModelImplCopyWith<_$CompanyUnitModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

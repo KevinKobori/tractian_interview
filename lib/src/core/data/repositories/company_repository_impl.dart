@@ -7,21 +7,23 @@ import 'package:tractian_interview/src/core/data/models/location_model.dart';
 import 'package:tractian_interview/src/core/domain/failures/domain_failure.dart';
 import 'package:tractian_interview/src/core/domain/repositories/company_repository.dart';
 
-class CompanyRepositoryImpl implements CompanyRepository {
+class CompanyUnitRepositoryImpl implements CompanyUnitRepository {
   final Dio apiClient;
   final ApiCompanyPaths apiPaths;
 
-  CompanyRepositoryImpl({
+  CompanyUnitRepositoryImpl({
     required this.apiClient,
     required this.apiPaths,
   });
 
   @override
-  Future<Either<DomainFailure, List<CompanyModel>>> getAllCompanies() async {
+  Future<Either<DomainFailure, List<CompanyUnitModel>>>
+      getAllCompanies() async {
     try {
-      final response = await apiClient.get<List<dynamic>>(apiPaths.companies());
+      final response =
+          await apiClient.get<List<dynamic>>(apiPaths.getCompanies());
       return Right(
-          response.data!.map((e) => CompanyModel.fromJson(e)).toList());
+          response.data!.map((e) => CompanyUnitModel.fromJson(e)).toList());
     } catch (_) {
       return const Left(DomainFailure.unexpected());
     }
@@ -32,7 +34,7 @@ class CompanyRepositoryImpl implements CompanyRepository {
       String companyId) async {
     try {
       final response = await apiClient
-          .get<List<dynamic>>(apiPaths.companyLocations(companyId));
+          .get<List<dynamic>>(apiPaths.getCompanyLocations(companyId));
       return Right(
           response.data!.map((e) => LocationModel.fromJson(e)).toList());
     } catch (_) {
@@ -44,8 +46,8 @@ class CompanyRepositoryImpl implements CompanyRepository {
   Future<Either<DomainFailure, List<AssetModel>>> getCompanyAssets(
       String companyId) async {
     try {
-      final response =
-          await apiClient.get<List<dynamic>>(apiPaths.companyAssets(companyId));
+      final response = await apiClient
+          .get<List<dynamic>>(apiPaths.getCompanyAssets(companyId));
       return Right(response.data!.map((e) => AssetModel.fromJson(e)).toList());
     } catch (_) {
       return const Left(DomainFailure.unexpected());

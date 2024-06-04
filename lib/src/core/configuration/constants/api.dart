@@ -46,10 +46,10 @@ class ApiPaths {
 }
 
 class ApiCompanyPaths {
-  String companies() => '/companies';
+  String getCompanies() => '/companies';
 
-  String companyLocations(String companyId) =>
+  String getCompanyLocations(String companyId) =>
       '/companies/$companyId/locations';
 
-  String companyAssets(String companyId) => '/companies/$companyId/assets';
+  String getCompanyAssets(String companyId) => '/companies/$companyId/assets';
 }
