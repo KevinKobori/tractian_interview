@@ -6,15 +6,14 @@ import 'package:tractian_interview/src/features/asset/domain/usecases/remote_loa
 
 class RemoteLoadCompanyAssetsUseCaseImpl
     implements RemoteLoadCompanyAssetsUseCase {
-  final CompanyUnitRepository companyUnitRepository;
+  final CompanyUnitRepository repository;
 
-  RemoteLoadCompanyAssetsUseCaseImpl(this.companyUnitRepository);
+  RemoteLoadCompanyAssetsUseCaseImpl(this.repository);
 
   @override
   Future<Either<DomainFailure, List<AssetModel>>> call(String companyId) async {
-    final repositoryResult =
-        await companyUnitRepository.getCompanyAssets(companyId);
+    final result = await repository.getCompanyAssets(companyId);
 
-    return repositoryResult;
+    return result;
   }
 }

@@ -4,5 +4,5 @@ import 'package:tractian_interview/src/features/home/presentation/presenter/home
 
 abstract class HomePagePresenter {
   Future<void> onLoadAllCompaniesUnit(Emitter<HomePageState> emit);
-  void onPushToCompanyAssetPage(PushToCompanyAssetPage event);
+  void onPushToAssetPage(PushToAssetPage event);
 }

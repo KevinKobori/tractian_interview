@@ -40,14 +40,14 @@ class _HomePageState extends State<HomePage> {
           return const HomePageLoadingView();
         } else if (state is HomePageLoadedFailure) {
           return HomePageLoadedFailureView(
-            failureMessage: state.message,
+            message: state.message,
             onReload: () => bloc.add(const LoadAllCompaniesUnit()),
           );
         } else if (state is HomePageLoadedSuccess) {
           return HomePageLoadedSuccessView(
             companies: state.companies,
-            onPushToCompanyAssetPage: (companyId) =>
-                bloc.add(PushToCompanyAssetPage(context, companyId)),
+            onPushToAssetPage: (companyId) =>
+                bloc.add(PushToAssetPage(context, companyId)),
           );
         } else {
           return const ChallengeBlancBox();

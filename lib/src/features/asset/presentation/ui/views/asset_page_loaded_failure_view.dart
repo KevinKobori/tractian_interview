@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar.dart';
 
 class AssetPageLoadedFailureView extends StatelessWidget {
-  final String failureMessage;
+  final String message;
   final void Function() onReload;
 
   const AssetPageLoadedFailureView({
-    required this.failureMessage,
+    required this.message,
     required this.onReload,
     super.key,
   });
@@ -15,7 +15,7 @@ class AssetPageLoadedFailureView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ChallengeAppBar(pageTitle: 'Asset'),
-      body: Center(child: Text(failureMessage)),
+      body: Center(child: Text(message)),
     );
   }
 }

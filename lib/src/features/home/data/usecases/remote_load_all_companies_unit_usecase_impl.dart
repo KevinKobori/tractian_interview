@@ -6,14 +6,14 @@ import 'package:tractian_interview/src/features/home/domain/usecases/remote_load
 
 class RemoteLoadAllCompaniesUnitUseCaseImpl
     implements RemoteLoadAllCompaniesUnitUseCase {
-  final CompanyUnitRepository companyUnitRepository;
+  final CompanyUnitRepository repository;
 
-  RemoteLoadAllCompaniesUnitUseCaseImpl(this.companyUnitRepository);
+  RemoteLoadAllCompaniesUnitUseCaseImpl(this.repository);
 
   @override
   Future<Either<DomainFailure, List<CompanyUnitModel>>> call(void _) async {
-    final repositoryResult = await companyUnitRepository.getAllCompanies();
+    final result = await repository.getAllCompanies();
 
-    return repositoryResult;
+    return result;
   }
 }

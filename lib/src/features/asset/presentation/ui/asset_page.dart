@@ -42,13 +42,13 @@ class _AssetPageState extends State<AssetPage> {
           return const AssetPageLoadingView();
         } else if (state is AssetPageLoadedFailure) {
           return AssetPageLoadedFailureView(
-            failureMessage: state.message,
+            message: state.message,
             onReload: () => bloc.add(LoadTree(widget.companyId)),
           );
         } else if (state is AssetPageLoadedSuccess) {
           return AssetPageLoadedSuccessView(
             assets: state.assets,
-            onSearchItem: (value) => bloc.add(SearchItem(value)),
+            onSearch: (value) => bloc.add(Search(value)),
           );
         } else {
           return const ChallengeBlancBox();

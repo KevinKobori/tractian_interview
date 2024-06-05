@@ -4,11 +4,11 @@ import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar
 
 class AssetPageLoadedSuccessView extends StatelessWidget {
   final List<AssetModel> assets;
-  final void Function(String value) onSearchItem;
+  final void Function(String value) onSearch;
 
   const AssetPageLoadedSuccessView({
     required this.assets,
-    required this.onSearchItem,
+    required this.onSearch,
     super.key,
   });
 

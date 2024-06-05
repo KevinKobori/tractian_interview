@@ -12,11 +12,11 @@ class LoadAllCompaniesUnit extends HomePageEvent {
   List<Object?> get props => [];
 }
 
-class PushToCompanyAssetPage extends HomePageEvent {
+class PushToAssetPage extends HomePageEvent {
   final BuildContext context;
   final String companyId;
 
-  const PushToCompanyAssetPage(
+  const PushToAssetPage(
     this.context,
     this.companyId,
   );

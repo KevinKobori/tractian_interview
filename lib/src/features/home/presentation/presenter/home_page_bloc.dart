@@ -12,15 +12,15 @@ import 'package:tractian_interview/src/features/home/presentation/presenter/home
 
 class HomePageBloc extends Bloc<HomePageEvent, HomePageState>
     implements HomePagePresenter {
-  RemoteLoadAllCompaniesUnitUseCase remoteLoadAllCompaniesUnit;
+  RemoteLoadAllCompaniesUnitUseCase loadAllCompaniesUnit;
 
-  HomePageBloc(this.remoteLoadAllCompaniesUnit) : super(HomePageLoading()) {
+  HomePageBloc(this.loadAllCompaniesUnit) : super(HomePageLoading()) {
     on<LoadAllCompaniesUnit>((event, emit) async {
       await onLoadAllCompaniesUnit(emit);
     });
 
-    on<PushToCompanyAssetPage>((event, emit) async {
-      await onPushToCompanyAssetPage(event);
+    on<PushToAssetPage>((event, emit) async {
+      await onPushToAssetPage(event);
     });
   }
 
@@ -28,17 +28,17 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState>
   Future<void> onLoadAllCompaniesUnit(Emitter<HomePageState> emit) async {
     emit(HomePageLoading());
 
-    final Either<DomainFailure, List<CompanyUnitModel>> usecaseResult =
-        await remoteLoadAllCompaniesUnit.call(null);
+    final Either<DomainFailure, List<CompanyUnitModel>> result =
+        await loadAllCompaniesUnit.call(null);
 
-    usecaseResult.fold(
+    result.fold(
         (domainFailure) => emit(HomePageLoadedFailure(domainFailure.toUI())),
         (companyUnitModelList) =>
             emit(HomePageLoadedSuccess(companyUnitModelList)));
   }
 
   @override
-  Future<void> onPushToCompanyAssetPage(PushToCompanyAssetPage event) async {
+  Future<void> onPushToAssetPage(PushToAssetPage event) async {
     await Navigator.push(
       event.context,
       MaterialPageRoute(

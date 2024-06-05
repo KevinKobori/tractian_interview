@@ -8,17 +8,17 @@ import 'package:tractian_interview/src/design_system/challenge_metrics.dart';
 class MenuListTile extends StatelessWidget {
   const MenuListTile({
     required this.company,
-    required this.onPushToCompanyAssetPage,
+    required this.onPushToAssetPage,
     super.key,
   });
 
   final CompanyUnitModel company;
-  final void Function(String companyId) onPushToCompanyAssetPage;
+  final void Function(String companyId) onPushToAssetPage;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => onPushToCompanyAssetPage(company.id),
+      onTap: () => onPushToAssetPage(company.id),
       child: Container(
         padding: const EdgeInsets.symmetric(
             horizontal: ChallegeMetrics.tileHorizontalPadding,

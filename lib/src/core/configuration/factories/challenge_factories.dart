@@ -4,6 +4,7 @@ import 'package:tractian_interview/src/core/configuration/constants/api.dart';
 import 'package:tractian_interview/src/core/data/repositories/company_repository_impl.dart';
 import 'package:tractian_interview/src/core/domain/repositories/company_repository.dart';
 import 'package:tractian_interview/src/features/asset/data/usecases/remote_load_company_assets_usecase_impl.dart';
+import 'package:tractian_interview/src/features/asset/data/usecases/remote_load_company_locations_usecase_impl.dart';
 import 'package:tractian_interview/src/features/asset/presentation/presenter/asset_page_bloc.dart';
 import 'package:tractian_interview/src/features/asset/presentation/ui/asset_page.dart';
 import 'package:tractian_interview/src/features/home/data/usecases/remote_load_all_companies_unit_usecase_impl.dart';
@@ -21,10 +22,16 @@ class ChallengeFactories {
   }
 
   static Widget getAssetPage(String companyId) {
+    final remoteLoadCompanyLocationsUseCase =
+        RemoteLoadCompanyLocationsUseCaseImpl(_getCompanyUnitRepository());
+
     final remoteLoadCompanyAssetsUseCase =
         RemoteLoadCompanyAssetsUseCaseImpl(_getCompanyUnitRepository());
 
-    final assetPageBloc = AssetPageBloc(remoteLoadCompanyAssetsUseCase);
+    final assetPageBloc = AssetPageBloc(
+      remoteLoadCompanyLocationsUseCase,
+      remoteLoadCompanyAssetsUseCase,
+    );
 
     return AssetPage(companyId, assetPageBloc);
   }

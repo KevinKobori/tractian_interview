@@ -6,11 +6,11 @@ import 'package:tractian_interview/src/features/home/presentation/ui/widgets/men
 
 class HomePageLoadedSuccessView extends StatelessWidget {
   final List<CompanyUnitModel> companies;
-  final void Function(String companyId) onPushToCompanyAssetPage;
+  final void Function(String companyId) onPushToAssetPage;
 
   const HomePageLoadedSuccessView({
     required this.companies,
-    required this.onPushToCompanyAssetPage,
+    required this.onPushToAssetPage,
     super.key,
   });
 
@@ -28,7 +28,7 @@ class HomePageLoadedSuccessView extends StatelessWidget {
             padding: const EdgeInsets.only(
                 bottom: ChallegeMetrics.tileHorizontalPadding),
             child: MenuListTile(
-              onPushToCompanyAssetPage: onPushToCompanyAssetPage,
+              onPushToAssetPage: onPushToAssetPage,
               company: company,
             ),
           );
