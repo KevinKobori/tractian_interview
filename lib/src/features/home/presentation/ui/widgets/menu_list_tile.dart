@@ -24,7 +24,7 @@ class MenuListTile extends StatelessWidget {
             horizontal: ChallegeMetrics.tileHorizontalPadding,
             vertical: ChallegeMetrics.tileVerticalPadding),
         decoration: BoxDecoration(
-          color: const Color(0xFF2188FF),
+          color: ChallegeMetrics.iconColor,
           borderRadius: BorderRadius.circular(ChallegeMetrics.tileRadius),
         ),
         child: Row(

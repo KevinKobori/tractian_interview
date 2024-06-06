@@ -1,5 +1,5 @@
 import 'package:tractian_interview/src/core/data/models/asset_model.dart';
-import 'package:tractian_interview/src/features/asset/data/models/tree_node.dart';
+import 'package:tractian_interview/src/features/asset/data/models/asset_tree_node.dart';
 
 class TreeManager {
   static AssetModel? returnAssetModelObject(dynamic value) {
@@ -52,16 +52,16 @@ class TreeManager {
     return branches;
   }
 
-  static List<TreeNode> buildTrees(List<List<dynamic>> branches) {
-    final Map<String, TreeNode> nodeMap = {};
-    final List<TreeNode> trees = [];
+  static List<AssetTreeNode> buildTrees(List<List<dynamic>> branches) {
+    final Map<String, AssetTreeNode> nodeMap = {};
+    final List<AssetTreeNode> trees = [];
 
     for (final branch in branches) {
-      TreeNode? parent;
+      AssetTreeNode? parent;
       for (int i = 0; i < branch.length; i++) {
         final object = branch[i];
         if (!nodeMap.containsKey(object.id)) {
-          final node = TreeNode(object);
+          final node = AssetTreeNode(object);
           nodeMap[object.id] = node;
           if (parent != null) {
             parent.addChild(node);
