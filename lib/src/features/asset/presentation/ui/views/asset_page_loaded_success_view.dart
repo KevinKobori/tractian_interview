@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tractian_interview/src/core/data/models/asset_model.dart';
@@ -30,40 +27,152 @@ class _AssetPageLoadedSuccessViewState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ChallengeAppBar(pageTitle: 'Asset'),
-      body: ListView(
-        children: widget.trees.map((tree) => buildTree(tree)).toList(),
+      body: ListView.builder(
+        itemCount: widget.trees.length,
+        itemBuilder: (context, index) {
+          final node = widget.trees[index];
+          return buildTree(node);
+        },
       ),
     );
   }
 
-  Widget buildTree(AssetTreeNode node,
-      [bool isLastOfChildrens = false, int level = 0]) {
-    return Stack(
-      children: [
-        TreeLines(
-          isFirst: level == 0,
-          isLast: node.children.isEmpty,
-          isLastOfChildrens: isLastOfChildrens,
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              left: level == 0 ? 0.0 : ChallegeMetrics.nodeTileLeftPadding),
-          child: _CustomExpansionTile(
-            hintText: node.object.name,
-            title: Text(
-              node.object.name,
-              style: const TextStyle(overflow: TextOverflow.ellipsis),
+  Widget buildTree(AssetTreeNode node, [int level = 0]) {
+    return TreeNodeWidget(
+      parentNode: null,
+      currentNode: node,
+      level: level,
+      isLastOfChildrens: false,
+      parentHaveBrother: false,
+    );
+  }
+}
+
+class TreeNodeWidget extends StatefulWidget {
+  final AssetTreeNode? parentNode;
+  final AssetTreeNode currentNode;
+  final int level;
+  final bool isLastOfChildrens;
+  final bool parentHaveBrother;
+
+  const TreeNodeWidget({
+    required this.parentNode,
+    required this.currentNode,
+    required this.level,
+    required this.isLastOfChildrens,
+    required this.parentHaveBrother,
+    super.key,
+  });
+
+  @override
+  State<TreeNodeWidget> createState() => _TreeNodeWidgetState();
+}
+
+class _TreeNodeWidgetState extends State<TreeNodeWidget> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+          left: widget.level == 0 || widget.level == 1
+              ? 0.0
+              : ChallegeMetrics.nodeTileLeftPadding),
+      child: Tooltip(
+        message: widget.currentNode.object.name,
+        showDuration: const Duration(seconds: 5),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                TreeLines(
+                  isFirst: widget.level == 0,
+                  isLast: widget.currentNode.children.isEmpty,
+                  isLastOfChildrens: widget.isLastOfChildrens,
+                  parentHaveBrother: widget.parentHaveBrother,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: widget.level == 0
+                        ? 0.0
+                        : ChallegeMetrics.nodeTileLeftPadding,
+                  ),
+                  child: ListTile(
+                    leading: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        widget.currentNode.children.isNotEmpty
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _isExpanded = !_isExpanded;
+                                  });
+                                },
+                                child: AnimatedRotation(
+                                  turns: _isExpanded ? 0.0 : -0.25,
+                                  duration: const Duration(milliseconds: 300),
+                                  child: SvgPicture.asset(
+                                    'images/icons/tree_arrow.svg',
+                                    colorFilter: const ColorFilter.mode(
+                                      ChallegeMetrics.nodeTileIndicatorColor,
+                                      BlendMode.srcIn,
+                                    ),
+                                    height:
+                                        ChallegeMetrics.nodeTileIndicatorSize,
+                                    width:
+                                        ChallegeMetrics.nodeTileIndicatorSize,
+                                  ),
+                                ),
+                              )
+                            : const Icon(
+                                Icons.fiber_manual_record,
+                                color: ChallegeMetrics.nodeTileIndicatorColor,
+                                size: ChallegeMetrics.nodeTileIndicatorSize,
+                              ),
+                        const SizedBox(width: 16),
+                        _getIconForNode(widget.currentNode),
+                      ],
+                    ),
+                    title: Text(
+                      widget.currentNode.object.name,
+                      style: const TextStyle(overflow: TextOverflow.ellipsis),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            icon: _getIconForNode(node),
-            hasChildren: node.children.isNotEmpty,
-            children: node.children.map((child) {
-              final value = child.object.id ==
-                  node.children[node.children.length - 1].object.id;
-              return buildTree(child, value, level + 1);
-            }).toList(),
-          ),
+            if (_isExpanded)
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: widget.currentNode.children.length,
+                itemBuilder: (context, index) {
+                  final child = widget.currentNode.children[index];
+                  final isLastOfChildrens =
+                      index == widget.currentNode.children.length - 1;
+                  bool parentHaveBrother = false;
+                  if (widget.parentNode != null &&
+                      widget.parentNode!.children.isNotEmpty) {
+                    parentHaveBrother = widget
+                            .parentNode!
+                            .children[widget.parentNode!.children.length - 1]
+                            .object
+                            .id !=
+                        widget.currentNode.object.id;
+                  }
+
+                  return TreeNodeWidget(
+                    parentNode: widget.currentNode,
+                    currentNode: child,
+                    level: widget.level + 1,
+                    isLastOfChildrens: isLastOfChildrens,
+                    parentHaveBrother: parentHaveBrother,
+                  );
+                },
+              ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -108,11 +217,13 @@ class TreeLines extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final bool isLastOfChildrens;
+  final bool parentHaveBrother;
 
   const TreeLines({
     required this.isFirst,
     required this.isLast,
     required this.isLastOfChildrens,
+    required this.parentHaveBrother,
     super.key,
   });
 
@@ -126,6 +237,7 @@ class TreeLines extends StatelessWidget {
         isFirst: isFirst,
         isLast: isLast,
         isLastOfChildrens: isLastOfChildrens,
+        parentHaveBrother: parentHaveBrother,
       ),
       child: const SizedBox(width: leftSpace, height: tileHeight),
     );
@@ -136,11 +248,13 @@ class _TreeLinesPainter extends CustomPainter {
   final bool isFirst;
   final bool isLast;
   final bool isLastOfChildrens;
+  final bool parentHaveBrother;
 
   _TreeLinesPainter({
     required this.isFirst,
     required this.isLast,
     required this.isLastOfChildrens,
+    required this.parentHaveBrother,
   });
 
   @override
@@ -170,10 +284,18 @@ class _TreeLinesPainter extends CustomPainter {
           Offset(startX + ChallegeMetrics.nodeTileLeftPadding, size.height),
           paint,
         );
-      } else if (isLast && !isLastOfChildrens) {
+      }
+      if (!isLastOfChildrens) {
         canvas.drawLine(
           Offset(startX, 28),
           Offset(startX, size.height),
+          paint,
+        );
+      }
+      if (parentHaveBrother) {
+        canvas.drawLine(
+          Offset(startX - ChallegeMetrics.nodeTileLeftPadding, 0),
+          Offset(startX - ChallegeMetrics.nodeTileLeftPadding, size.height),
           paint,
         );
       }
@@ -189,105 +311,5 @@ class _TreeLinesPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return false;
-  }
-}
-
-class _CustomExpansionTile extends StatefulWidget {
-  final Widget title;
-  final Widget icon;
-  final List<Widget> children;
-  final bool hasChildren;
-  final String hintText;
-
-  const _CustomExpansionTile({
-    required this.title,
-    required this.icon,
-    required this.children,
-    required this.hasChildren,
-    required this.hintText,
-  });
-
-  @override
-  __CustomExpansionTileState createState() => __CustomExpansionTileState();
-}
-
-class __CustomExpansionTileState extends State<_CustomExpansionTile>
-    with SingleTickerProviderStateMixin {
-  bool _isExpanded = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: _getRandomColor(),
-      child: Tooltip(
-        message: widget.hintText,
-        waitDuration: const Duration(seconds: 1),
-        child: Column(
-          children: [
-            ListTile(
-              leading: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  widget.hasChildren
-                      ? AnimatedRotation(
-                          turns: _isExpanded ? 0.0 : -0.25,
-                          duration: const Duration(milliseconds: 300),
-                          child: SvgPicture.asset(
-                            'images/icons/tree_arrow.svg',
-                            colorFilter: const ColorFilter.mode(
-                              ChallegeMetrics.nodeTileIndicatorColor,
-                              BlendMode.srcIn,
-                            ),
-                            height: ChallegeMetrics.nodeTileIndicatorSize,
-                            width: ChallegeMetrics.nodeTileIndicatorSize,
-                          ),
-                        )
-                      : const Icon(
-                          Icons.fiber_manual_record,
-                          color: ChallegeMetrics.nodeTileIndicatorColor,
-                          size: ChallegeMetrics.nodeTileIndicatorSize,
-                        ),
-                  const SizedBox(width: 16),
-                  widget.icon,
-                ],
-              ),
-              title: widget.title,
-              onTap: widget.hasChildren ? _handleTap : null,
-            ),
-            if (widget.hasChildren)
-              AnimatedCrossFade(
-                firstChild: Container(),
-                secondChild: Column(children: widget.children),
-                crossFadeState: _isExpanded
-                    ? CrossFadeState.showSecond
-                    : CrossFadeState.showFirst,
-                duration: const Duration(milliseconds: 300),
-                firstCurve: Curves.easeInOut,
-                secondCurve: Curves.easeInOut,
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _handleTap() {
-    setState(() {
-      _isExpanded = !_isExpanded;
-    });
-  }
-
-  Color _getRandomColor() {
-    final Random random = Random();
-    if (kDebugMode) {
-      return Color.fromARGB(
-        32,
-        random.nextInt(256),
-        random.nextInt(256),
-        random.nextInt(256),
-      );
-    } else {
-      return Colors.transparent;
-    }
   }
 }
