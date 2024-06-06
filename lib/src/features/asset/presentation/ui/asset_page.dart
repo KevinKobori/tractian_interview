@@ -47,8 +47,8 @@ class _AssetPageState extends State<AssetPage> {
           );
         } else if (state is AssetPageLoadedSuccess) {
           return AssetPageLoadedSuccessView(
-            assets: state.assets,
-            onSearch: (value) => bloc.add(Search(value)),
+            trees: state.trees,
+            onSearch: (value) => bloc.add(SearchByName(value)),
           );
         } else {
           return const ChallengeBlancBox();

@@ -1,8 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tractian_interview/src/core/data/models/asset_model.dart';
-import 'package:tractian_interview/src/core/data/models/location_model.dart';
-import 'package:tractian_interview/src/core/domain/failures/domain_failure.dart';
+import 'package:tractian_interview/src/core/presentation/failures/domain_failure_to_ui_failure_extension.dart';
+import 'package:tractian_interview/src/features/asset/domain/usecases/build_asset_trees_usecase.dart';
 import 'package:tractian_interview/src/features/asset/domain/usecases/remote_load_company_assets_usecase.dart';
 import 'package:tractian_interview/src/features/asset/domain/usecases/remote_load_company_locations_usecase.dart';
 import 'package:tractian_interview/src/features/asset/presentation/presenter/asset_page_event.dart';
@@ -13,43 +11,65 @@ class AssetPageBloc extends Bloc<AssetPageEvent, AssetPageState>
     implements AssetPagePresenter {
   RemoteLoadCompanyLocationsUseCase loadCompanyLocations;
   RemoteLoadCompanyAssetsUseCase loadCompanyAssets;
+  BuildAssetTreesUseCase buildAssetTrees;
 
   AssetPageBloc(
     this.loadCompanyLocations,
     this.loadCompanyAssets,
+    this.buildAssetTrees,
   ) : super(AssetPageLoading()) {
     on<LoadTree>((event, emit) async {
       await onLoadTree(event, emit);
     });
 
-    on<Search>((event, emit) {
-      onSearch(event, emit);
+    on<SearchByName>((event, emit) {
+      onSearchByName(event, emit);
     });
   }
 
-  Future<Either<DomainFailure, List<AssetModel>>> _loadCompanyAssets(
-      String companyId) async {
-    final Either<DomainFailure, List<AssetModel>> result =
-        await loadCompanyAssets.call(companyId);
-
-    return result;
-  }
-
-  Future<Either<DomainFailure, List<LocationModel>>> _loadCompanyLocations(
-      String companyId) async {
-    final Either<DomainFailure, List<LocationModel>> result =
-        await loadCompanyLocations.call(companyId);
-
-    return result;
-  }
+  late List<dynamic> data;
 
   @override
   Future<void> onLoadTree(LoadTree event, Emitter<AssetPageState> emit) async {
     emit(AssetPageLoading());
-    final locationsResult = _loadCompanyLocations(event.companyId);
-    final assetsResult = _loadCompanyAssets(event.companyId);
+
+    final locationsResult = await loadCompanyLocations.call(event.companyId);
+    final assetsResult = await loadCompanyAssets.call(event.companyId);
+
+    locationsResult.fold(
+      (domainFailure) => emit(AssetPageLoadedFailure(domainFailure.toUI())),
+      (locationModelList) {
+        assetsResult.fold(
+          (domainFailure) => emit(AssetPageLoadedFailure(domainFailure.toUI())),
+          (assetModelList) {
+            data = [...locationModelList, ...assetModelList];
+
+            final List<String> ids = _getAllIds(data);
+
+            final params = AssetTreesParams(data: data, ids: ids);
+            final assetTreesResult = buildAssetTrees.call(params);
+
+            assetTreesResult.fold(
+              (domainFailure) =>
+                  emit(AssetPageLoadedFailure(domainFailure.toUI())),
+              (treeNodeList) => emit(AssetPageLoadedSuccess(treeNodeList)),
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
-  void onSearch(Search event, Emitter<AssetPageState> emit) async {}
+  void onSearchByName(SearchByName event, Emitter<AssetPageState> emit) async {}
+
+  List<String> _getAllIds(List<dynamic> list) {
+    final List<String> ids = [];
+
+    for (final data in list) {
+      ids.add(data.id);
+    }
+
+    return ids;
+  }
 }

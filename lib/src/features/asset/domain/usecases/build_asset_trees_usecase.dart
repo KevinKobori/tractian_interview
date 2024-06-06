@@ -1,0 +1,20 @@
+import 'package:dartz/dartz.dart';
+import 'package:tractian_interview/src/core/domain/failures/domain_failure.dart';
+import 'package:tractian_interview/src/core/domain/usecases/usecase.dart';
+import 'package:tractian_interview/src/features/asset/data/models/tree_node.dart';
+
+mixin BuildAssetTreesUseCase
+    implements UseCase<DomainFailure, List<TreeNode>, AssetTreesParams> {
+  @override
+  Either<DomainFailure, List<TreeNode>> call(AssetTreesParams assetTreesParams);
+}
+
+class AssetTreesParams {
+  final List<dynamic> data;
+  final List<String> ids;
+
+  const AssetTreesParams({
+    required this.data,
+    required this.ids,
+  });
+}

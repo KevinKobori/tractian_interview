@@ -1,4 +1,4 @@
-import 'package:tractian_interview/src/core/data/models/asset_model.dart';
+import 'package:tractian_interview/src/features/asset/data/models/tree_node.dart';
 
 abstract class AssetPageState {}
 
@@ -7,9 +7,9 @@ class AssetPageIdle extends AssetPageState {}
 class AssetPageLoading extends AssetPageState {}
 
 class AssetPageLoadedSuccess extends AssetPageState {
-  final List<AssetModel> assets;
+  List<TreeNode> trees;
 
-  AssetPageLoadedSuccess(this.assets);
+  AssetPageLoadedSuccess(this.trees);
 }
 
 class AssetPageLoadedFailure extends AssetPageState {
