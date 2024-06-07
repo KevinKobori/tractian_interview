@@ -2,10 +2,7 @@
 
 ## Apresentação em Vídeo
 
-<video width="640" height="480" controls>
-  <source src="https://github.com/KevinKobori/tractian_interview/tree/master/assets/result.webm" type="video/webm">
-  Seu navegador não suporta a tag de vídeo.
-</video>
+[result.webm](https://github.com/KevinKobori/tractian_interview/assets/143670993/74278972-0f75-4e4c-ac90-48456b8d0c65)
 
 ## Desafio
 
