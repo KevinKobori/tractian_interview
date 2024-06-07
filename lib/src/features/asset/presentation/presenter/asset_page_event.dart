@@ -24,3 +24,17 @@ class SearchByName extends AssetPageEvent {
         name,
       ];
 }
+
+class SearchByEnergySensor extends AssetPageEvent {
+  const SearchByEnergySensor();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class SearchByAlertStatus extends AssetPageEvent {
+  const SearchByAlertStatus();
+
+  @override
+  List<Object?> get props => [];
+}

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tractian_interview/src/core/presentation/failures/domain_failure_to_ui_failure_extension.dart';
+import 'package:tractian_interview/src/features/asset/data/managers/tree_manager.dart';
 import 'package:tractian_interview/src/features/asset/domain/usecases/build_asset_trees_usecase.dart';
 import 'package:tractian_interview/src/features/asset/domain/usecases/remote_load_company_assets_usecase.dart';
 import 'package:tractian_interview/src/features/asset/domain/usecases/remote_load_company_locations_usecase.dart';
@@ -24,6 +25,14 @@ class AssetPageBloc extends Bloc<AssetPageEvent, AssetPageState>
 
     on<SearchByName>((event, emit) {
       onSearchByName(event, emit);
+    });
+
+    on<SearchByEnergySensor>((_, emit) {
+      onSearchByEnergySensor(emit);
+    });
+
+    on<SearchByAlertStatus>((_, emit) {
+      onSearchByAlertStatus(emit);
     });
   }
 
@@ -61,8 +70,34 @@ class AssetPageBloc extends Bloc<AssetPageEvent, AssetPageState>
   }
 
   @override
-  void onSearchByName(SearchByName event, Emitter<AssetPageState> emit) async {
+  void onSearchByName(SearchByName event, Emitter<AssetPageState> emit) {
     final List<String> ids = _getIdsByName(data, event.name);
+
+    final params = AssetTreesParams(data: data, ids: ids);
+    final assetTreesResult = buildAssetTrees.call(params);
+
+    assetTreesResult.fold(
+      (domainFailure) => emit(AssetPageLoadedFailure(domainFailure.toUI())),
+      (treeNodeList) => emit(AssetPageLoadedSuccess(treeNodeList)),
+    );
+  }
+
+  @override
+  void onSearchByEnergySensor(Emitter<AssetPageState> emit) {
+    final List<String> ids = _getIdsByEnergySensor(data);
+
+    final params = AssetTreesParams(data: data, ids: ids);
+    final assetTreesResult = buildAssetTrees.call(params);
+
+    assetTreesResult.fold(
+      (domainFailure) => emit(AssetPageLoadedFailure(domainFailure.toUI())),
+      (treeNodeList) => emit(AssetPageLoadedSuccess(treeNodeList)),
+    );
+  }
+
+  @override
+  void onSearchByAlertStatus(Emitter<AssetPageState> emit) {
+    final List<String> ids = _getIdsByAlertStatus(data);
 
     final params = AssetTreesParams(data: data, ids: ids);
     final assetTreesResult = buildAssetTrees.call(params);
@@ -88,6 +123,36 @@ class AssetPageBloc extends Bloc<AssetPageEvent, AssetPageState>
 
     for (final data in list) {
       if (data.name.toLowerCase().contains(name.toLowerCase())) {
+        ids.add(data.id);
+      }
+    }
+    return ids;
+  }
+
+  List<String> _getIdsByEnergySensor(List<dynamic> list) {
+    final List<String> ids = [];
+
+    for (final data in list) {
+      if (TreeManager.returnAssetModelObject(data)
+              ?.sensorType
+              ?.toLowerCase()
+              .contains('energy') ??
+          false) {
+        ids.add(data.id);
+      }
+    }
+    return ids;
+  }
+
+  List<String> _getIdsByAlertStatus(List<dynamic> list) {
+    final List<String> ids = [];
+
+    for (final data in list) {
+      if (TreeManager.returnAssetModelObject(data)
+              ?.status
+              ?.toLowerCase()
+              .contains('alert'.toLowerCase()) ??
+          false) {
         ids.add(data.id);
       }
     }

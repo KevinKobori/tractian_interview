@@ -5,4 +5,6 @@ import 'package:tractian_interview/src/features/asset/presentation/presenter/ass
 abstract class AssetPagePresenter {
   Future<void> onLoadTree(LoadTree event, Emitter<AssetPageState> emit);
   void onSearchByName(SearchByName event, Emitter<AssetPageState> emit);
+  void onSearchByEnergySensor(Emitter<AssetPageState> emit);
+  void onSearchByAlertStatus(Emitter<AssetPageState> emit);
 }

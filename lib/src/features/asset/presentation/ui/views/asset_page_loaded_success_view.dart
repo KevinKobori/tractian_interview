@@ -3,35 +3,35 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tractian_interview/src/core/data/models/asset_model.dart';
 import 'package:tractian_interview/src/core/data/models/location_model.dart';
 import 'package:tractian_interview/src/design_system/challenge_metrics.dart';
+import 'package:tractian_interview/src/design_system/molecules/challenge_outlined_button.dart';
 import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar.dart';
 import 'package:tractian_interview/src/features/asset/data/models/asset_tree_node.dart';
 import 'package:tractian_interview/src/features/asset/presentation/ui/helpers/tree_lines_builder.dart';
 
-class AssetPageLoadedSuccessView extends StatefulWidget {
+class AssetPageLoadedSuccessView extends StatelessWidget {
   final List<AssetTreeNode> trees;
   final void Function(String value) onSearchByName;
+  final void Function() onSearchByEnergySensor;
+  final void Function() onSearchByAlertStatus;
 
   const AssetPageLoadedSuccessView({
     required this.trees,
     required this.onSearchByName,
+    required this.onSearchByEnergySensor,
+    required this.onSearchByAlertStatus,
     super.key,
   });
 
-  @override
-  State<AssetPageLoadedSuccessView> createState() =>
-      _AssetPageLoadedSuccessViewState();
-}
-
-class _AssetPageLoadedSuccessViewState
-    extends State<AssetPageLoadedSuccessView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ChallengeAppBar(pageTitle: 'Asset'),
       body: Column(
         children: [
+          const SizedBox(height: 16),
           Padding(
-            padding: const EdgeInsets.all(ChallegeMetrics.textFieldLeftMargin),
+            padding: const EdgeInsets.symmetric(
+                horizontal: ChallegeMetrics.textFieldLeftMargin),
             child: SizedBox(
               height: 32,
               child: TextField(
@@ -59,15 +59,37 @@ class _AssetPageLoadedSuccessViewState
                     borderSide: BorderSide.none,
                   ),
                 ),
-                onSubmitted: widget.onSearchByName,
+                onSubmitted: onSearchByName,
               ),
             ),
           ),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: ChallegeMetrics.buttonMargin),
+            child: Row(
+              children: [
+                ChallengeOutlinedButton(
+                  iconName: 'energy',
+                  label: 'Sensor de Energia',
+                  onPressed: onSearchByEnergySensor,
+                ),
+                const SizedBox(width: 8.0),
+                ChallengeOutlinedButton(
+                  iconName: 'alert',
+                  label: 'Crítico',
+                  onPressed: onSearchByAlertStatus,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          Divider(color: ChallegeMetrics.dividerColor),
           Expanded(
             child: ListView.builder(
-              itemCount: widget.trees.length,
+              itemCount: trees.length,
               itemBuilder: (context, index) {
-                final node = widget.trees[index];
+                final node = trees[index];
                 return TreeNodeWidget(
                   parentNode: null,
                   currentNode: node,

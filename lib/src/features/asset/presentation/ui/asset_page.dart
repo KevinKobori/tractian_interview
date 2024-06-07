@@ -49,6 +49,9 @@ class _AssetPageState extends State<AssetPage> {
           return AssetPageLoadedSuccessView(
             trees: state.trees,
             onSearchByName: (value) => bloc.add(SearchByName(value)),
+            onSearchByEnergySensor: () =>
+                bloc.add(const SearchByEnergySensor()),
+            onSearchByAlertStatus: () => bloc.add(const SearchByAlertStatus()),
           );
         } else {
           return const ChallengeBlancBox();

@@ -43,6 +43,7 @@ class TreeLinesPainter extends CustomPainter {
     required this.isLast,
     required this.isLastOfChildrens,
     required this.parentHaveBrother,
+    super.repaint,
   });
 
   @override
