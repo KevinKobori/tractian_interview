@@ -32,4 +32,7 @@ class ChallegeMetrics {
   static const buttonTextFontSize = 14.0;
 
   static Color dividerColor = const Color(0xFFD8DFE6);
+
+  static Color energyIconColor = const Color(0xFF52C41A);
+  static Color alertIconColor = const Color(0xFFED3833);
 }

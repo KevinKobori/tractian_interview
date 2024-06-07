@@ -4,7 +4,9 @@ import 'package:tractian_interview/src/core/data/models/asset_model.dart';
 import 'package:tractian_interview/src/core/data/models/location_model.dart';
 import 'package:tractian_interview/src/design_system/challenge_metrics.dart';
 import 'package:tractian_interview/src/design_system/molecules/challenge_outlined_button.dart';
+import 'package:tractian_interview/src/design_system/molecules/challenge_text_field.dart';
 import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar.dart';
+import 'package:tractian_interview/src/features/asset/data/managers/tree_manager.dart';
 import 'package:tractian_interview/src/features/asset/data/models/asset_tree_node.dart';
 import 'package:tractian_interview/src/features/asset/presentation/ui/helpers/tree_lines_builder.dart';
 
@@ -32,36 +34,7 @@ class AssetPageLoadedSuccessView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: ChallegeMetrics.textFieldLeftMargin),
-            child: SizedBox(
-              height: 32,
-              child: TextField(
-                decoration: InputDecoration(
-                  prefixIcon: SvgPicture.asset(
-                    'images/icons/search.svg',
-                    colorFilter: ColorFilter.mode(
-                      ChallegeMetrics.textFieldIconColor,
-                      BlendMode.srcIn,
-                    ),
-                    fit: BoxFit.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  filled: true,
-                  fillColor: ChallegeMetrics.textFieldFillColor,
-                  hintText: ChallegeMetrics.textFieldHintText,
-                  hintStyle: TextStyle(
-                    color: ChallegeMetrics.textFieldHintColor,
-                    fontWeight: FontWeight.w400,
-                    fontSize: ChallegeMetrics.textFieldHintFontSize,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(ChallegeMetrics.textFieldRadius),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                onSubmitted: onSearchByName,
-              ),
-            ),
+            child: ChallengeTextField(onSearchByName: onSearchByName),
           ),
           const SizedBox(height: 16),
           Padding(
@@ -70,13 +43,13 @@ class AssetPageLoadedSuccessView extends StatelessWidget {
             child: Row(
               children: [
                 ChallengeOutlinedButton(
-                  iconName: 'energy',
+                  iconName: 'energy_outlined',
                   label: 'Sensor de Energia',
                   onPressed: onSearchByEnergySensor,
                 ),
                 const SizedBox(width: 8.0),
                 ChallengeOutlinedButton(
-                  iconName: 'alert',
+                  iconName: 'alert_outlined',
                   label: 'Crítico',
                   onPressed: onSearchByAlertStatus,
                 ),
@@ -90,7 +63,7 @@ class AssetPageLoadedSuccessView extends StatelessWidget {
               itemCount: trees.length,
               itemBuilder: (context, index) {
                 final node = trees[index];
-                return TreeNodeWidget(
+                return _TreeNodeWidget(
                   parentNode: null,
                   currentNode: node,
                   level: 0,
@@ -106,31 +79,42 @@ class AssetPageLoadedSuccessView extends StatelessWidget {
   }
 }
 
-class TreeNodeWidget extends StatefulWidget {
+class _TreeNodeWidget extends StatefulWidget {
   final AssetTreeNode? parentNode;
   final AssetTreeNode currentNode;
   final int level;
   final bool isLastOfChildrens;
   final bool parentHaveBrother;
 
-  const TreeNodeWidget({
+  const _TreeNodeWidget({
     required this.parentNode,
     required this.currentNode,
     required this.level,
     required this.isLastOfChildrens,
     required this.parentHaveBrother,
-    super.key,
   });
 
   @override
-  State<TreeNodeWidget> createState() => _TreeNodeWidgetState();
+  State<_TreeNodeWidget> createState() => _TreeNodeWidgetState();
 }
 
-class _TreeNodeWidgetState extends State<TreeNodeWidget> {
+class _TreeNodeWidgetState extends State<_TreeNodeWidget> {
   bool _isExpanded = false;
+  final isNone = false;
+  final isEnergy = false;
+  final isAlert = false;
 
   @override
   Widget build(BuildContext context) {
+    // final assetType =
+    //     AssetTypeExtension.getAssetTypeFromObject(widget.currentNode.object);
+    // final isEnergy = assetType == AssetType.energy;
+    // final isAlert = assetType == AssetType.alert;
+    final AssetModel? asset =
+        TreeManager.returnAssetModelObject(widget.currentNode.object);
+    final isEnergy = asset?.sensorType?.toLowerCase() == 'energy';
+    final isAlert = asset?.status?.toLowerCase() == 'alert';
+
     return Padding(
       padding: EdgeInsets.only(
           left: widget.level == 0 || widget.level == 1
@@ -191,9 +175,43 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                         _getIconForNode(widget.currentNode),
                       ],
                     ),
-                    title: Text(
-                      widget.currentNode.object.name,
-                      style: const TextStyle(overflow: TextOverflow.ellipsis),
+                    title: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            widget.currentNode.object.name,
+                            style: const TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            maxLines: 1,
+                          ),
+                        ),
+                        if (isEnergy) ...[
+                          const SizedBox(width: 4),
+                          SvgPicture.asset(
+                            'images/icons/energy.svg',
+                            colorFilter: ColorFilter.mode(
+                              ChallegeMetrics.energyIconColor,
+                              BlendMode.srcIn,
+                            ),
+                            height: ChallegeMetrics.nodeTileIndicatorSize,
+                            width: ChallegeMetrics.nodeTileIndicatorSize,
+                          ),
+                        ],
+                        if (isAlert) ...[
+                          const SizedBox(width: 4),
+                          SvgPicture.asset(
+                            'images/icons/alert.svg',
+                            colorFilter: ColorFilter.mode(
+                              ChallegeMetrics.alertIconColor,
+                              BlendMode.srcIn,
+                            ),
+                            height: ChallegeMetrics.nodeTileIndicatorSize,
+                            width: ChallegeMetrics.nodeTileIndicatorSize,
+                          ),
+                        ],
+                      ],
                     ),
                   ),
                 ),
@@ -219,7 +237,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                         widget.currentNode.object.id;
                   }
 
-                  return TreeNodeWidget(
+                  return _TreeNodeWidget(
                     parentNode: widget.currentNode,
                     currentNode: child,
                     level: widget.level + 1,
@@ -235,38 +253,31 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
   }
 
   Widget _getIconForNode(AssetTreeNode node) {
+    if (node.object is LocationModel) {
+      return _getIcon('location');
+    } else if (node.object is AssetModel) {
+      final asset = node.object as AssetModel;
+      if (asset.sensorType == null) {
+        return _getIcon('asset');
+      } else {
+        return _getIcon('component');
+      }
+    } else {
+      return const Icon(Icons.device_unknown);
+    }
+  }
+
+  Widget _getIcon(String iconName) {
     final colorFilter = ColorFilter.mode(
       ChallegeMetrics.iconColor,
       BlendMode.srcIn,
     );
     const iconSize = ChallegeMetrics.nodeTileIconSize;
-
-    if (node.object is LocationModel) {
-      return SvgPicture.asset(
-        'images/icons/location.svg',
-        colorFilter: colorFilter,
-        height: iconSize,
-        width: iconSize,
-      );
-    } else if (node.object is AssetModel) {
-      final asset = node.object as AssetModel;
-      if (asset.sensorType == null) {
-        return SvgPicture.asset(
-          'images/icons/asset.svg',
-          colorFilter: colorFilter,
-          height: iconSize,
-          width: iconSize,
-        );
-      } else {
-        return SvgPicture.asset(
-          'images/icons/component.svg',
-          colorFilter: colorFilter,
-          height: iconSize,
-          width: iconSize,
-        );
-      }
-    } else {
-      return const Icon(Icons.device_unknown);
-    }
+    return SvgPicture.asset(
+      'images/icons/$iconName.svg',
+      colorFilter: colorFilter,
+      height: iconSize,
+      width: iconSize,
+    );
   }
 }

@@ -40,7 +40,7 @@ class ChallengeOutlinedButton extends StatelessWidget {
               height: ChallegeMetrics.nodeTileIndicatorSize,
               width: ChallegeMetrics.nodeTileIndicatorSize,
             ),
-            const SizedBox(width: 8), // Espaçamento entre o ícone e o texto
+            const SizedBox(width: 8),
             Text(
               label,
               style: TextStyle(
