@@ -26,7 +26,7 @@ class HomePageLoadedSuccessView extends StatelessWidget {
 
           return Padding(
             padding: const EdgeInsets.only(
-                bottom: ChallegeMetrics.tileHorizontalPadding),
+                bottom: ChallegeMetrics.tileHorizontalMargin),
             child: MenuListTile(
               onPushToAssetPage: onPushToAssetPage,
               company: company,

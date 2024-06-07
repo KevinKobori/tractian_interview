@@ -61,7 +61,17 @@ class AssetPageBloc extends Bloc<AssetPageEvent, AssetPageState>
   }
 
   @override
-  void onSearchByName(SearchByName event, Emitter<AssetPageState> emit) async {}
+  void onSearchByName(SearchByName event, Emitter<AssetPageState> emit) async {
+    final List<String> ids = _getIdsByName(data, event.name);
+
+    final params = AssetTreesParams(data: data, ids: ids);
+    final assetTreesResult = buildAssetTrees.call(params);
+
+    assetTreesResult.fold(
+      (domainFailure) => emit(AssetPageLoadedFailure(domainFailure.toUI())),
+      (treeNodeList) => emit(AssetPageLoadedSuccess(treeNodeList)),
+    );
+  }
 
   List<String> _getAllIds(List<dynamic> list) {
     final List<String> ids = [];
@@ -70,6 +80,17 @@ class AssetPageBloc extends Bloc<AssetPageEvent, AssetPageState>
       ids.add(data.id);
     }
 
+    return ids;
+  }
+
+  List<String> _getIdsByName(List<dynamic> list, String name) {
+    final List<String> ids = [];
+
+    for (final data in list) {
+      if (data.name.toLowerCase().contains(name.toLowerCase())) {
+        ids.add(data.id);
+      }
+    }
     return ids;
   }
 }

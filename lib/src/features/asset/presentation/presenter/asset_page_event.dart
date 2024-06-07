@@ -15,12 +15,12 @@ class LoadTree extends AssetPageEvent {
 }
 
 class SearchByName extends AssetPageEvent {
-  final String value;
+  final String name;
 
-  const SearchByName(this.value);
+  const SearchByName(this.name);
 
   @override
   List<Object?> get props => [
-        value,
+        name,
       ];
 }

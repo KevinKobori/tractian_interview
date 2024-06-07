@@ -5,6 +5,7 @@ import 'package:tractian_interview/src/core/data/models/location_model.dart';
 import 'package:tractian_interview/src/design_system/challenge_metrics.dart';
 import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar.dart';
 import 'package:tractian_interview/src/features/asset/data/models/asset_tree_node.dart';
+import 'package:tractian_interview/src/features/asset/presentation/ui/helpers/tree_lines_builder.dart';
 
 class AssetPageLoadedSuccessView extends StatefulWidget {
   final List<AssetTreeNode> trees;
@@ -27,23 +28,58 @@ class _AssetPageLoadedSuccessViewState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ChallengeAppBar(pageTitle: 'Asset'),
-      body: ListView.builder(
-        itemCount: widget.trees.length,
-        itemBuilder: (context, index) {
-          final node = widget.trees[index];
-          return buildTree(node);
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(ChallegeMetrics.textFieldLeftMargin),
+            child: SizedBox(
+              height: 32,
+              child: TextField(
+                decoration: InputDecoration(
+                  prefixIcon: SvgPicture.asset(
+                    'images/icons/search.svg',
+                    colorFilter: ColorFilter.mode(
+                      ChallegeMetrics.textFieldIconColor,
+                      BlendMode.srcIn,
+                    ),
+                    fit: BoxFit.none,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  filled: true,
+                  fillColor: ChallegeMetrics.textFieldFillColor,
+                  hintText: ChallegeMetrics.textFieldHintText,
+                  hintStyle: TextStyle(
+                    color: ChallegeMetrics.textFieldHintColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: ChallegeMetrics.textFieldHintFontSize,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius:
+                        BorderRadius.circular(ChallegeMetrics.textFieldRadius),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                onSubmitted: widget.onSearchByName,
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: widget.trees.length,
+              itemBuilder: (context, index) {
+                final node = widget.trees[index];
+                return TreeNodeWidget(
+                  parentNode: null,
+                  currentNode: node,
+                  level: 0,
+                  isLastOfChildrens: false,
+                  parentHaveBrother: false,
+                );
+              },
+            ),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget buildTree(AssetTreeNode node, [int level = 0]) {
-    return TreeNodeWidget(
-      parentNode: null,
-      currentNode: node,
-      level: level,
-      isLastOfChildrens: false,
-      parentHaveBrother: false,
     );
   }
 }
@@ -77,7 +113,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
       padding: EdgeInsets.only(
           left: widget.level == 0 || widget.level == 1
               ? 0.0
-              : ChallegeMetrics.nodeTileLeftPadding),
+              : ChallegeMetrics.nodeTileLeftMargin),
       child: Tooltip(
         message: widget.currentNode.object.name,
         showDuration: const Duration(seconds: 5),
@@ -85,7 +121,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
           children: [
             Stack(
               children: [
-                TreeLines(
+                TreeLinesBuilder(
                   isFirst: widget.level == 0,
                   isLast: widget.currentNode.children.isEmpty,
                   isLastOfChildrens: widget.isLastOfChildrens,
@@ -95,7 +131,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                   padding: EdgeInsets.only(
                     left: widget.level == 0
                         ? 0.0
-                        : ChallegeMetrics.nodeTileLeftPadding,
+                        : ChallegeMetrics.nodeTileLeftMargin,
                   ),
                   child: ListTile(
                     leading: Row(
@@ -210,106 +246,5 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
     } else {
       return const Icon(Icons.device_unknown);
     }
-  }
-}
-
-class TreeLines extends StatelessWidget {
-  final bool isFirst;
-  final bool isLast;
-  final bool isLastOfChildrens;
-  final bool parentHaveBrother;
-
-  const TreeLines({
-    required this.isFirst,
-    required this.isLast,
-    required this.isLastOfChildrens,
-    required this.parentHaveBrother,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    const leftSpace = 23.0;
-    const tileHeight = 56.0;
-
-    return CustomPaint(
-      painter: _TreeLinesPainter(
-        isFirst: isFirst,
-        isLast: isLast,
-        isLastOfChildrens: isLastOfChildrens,
-        parentHaveBrother: parentHaveBrother,
-      ),
-      child: const SizedBox(width: leftSpace, height: tileHeight),
-    );
-  }
-}
-
-class _TreeLinesPainter extends CustomPainter {
-  final bool isFirst;
-  final bool isLast;
-  final bool isLastOfChildrens;
-  final bool parentHaveBrother;
-
-  _TreeLinesPainter({
-    required this.isFirst,
-    required this.isLast,
-    required this.isLastOfChildrens,
-    required this.parentHaveBrother,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = ChallegeMetrics.nodeTileLinesColor
-      ..strokeWidth = 1.0
-      ..style = PaintingStyle.stroke;
-
-    final double startX = size.width;
-    final double endX = startX * 2;
-
-    if (!isFirst) {
-      canvas.drawLine(
-        Offset(startX, 0),
-        Offset(startX, size.height / 2),
-        paint,
-      );
-      canvas.drawLine(
-        Offset(startX, size.height / 2),
-        Offset(endX, size.height / 2),
-        paint,
-      );
-      if (!isLast) {
-        canvas.drawLine(
-          Offset(startX + ChallegeMetrics.nodeTileLeftPadding, 38),
-          Offset(startX + ChallegeMetrics.nodeTileLeftPadding, size.height),
-          paint,
-        );
-      }
-      if (!isLastOfChildrens) {
-        canvas.drawLine(
-          Offset(startX, 28),
-          Offset(startX, size.height),
-          paint,
-        );
-      }
-      if (parentHaveBrother) {
-        canvas.drawLine(
-          Offset(startX - ChallegeMetrics.nodeTileLeftPadding, 0),
-          Offset(startX - ChallegeMetrics.nodeTileLeftPadding, size.height),
-          paint,
-        );
-      }
-    } else if (isFirst && !isLast) {
-      canvas.drawLine(
-        Offset(startX, 38),
-        Offset(startX, size.height),
-        paint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }

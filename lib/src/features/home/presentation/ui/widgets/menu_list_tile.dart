@@ -21,8 +21,8 @@ class MenuListTile extends StatelessWidget {
       onTap: () => onPushToAssetPage(company.id),
       child: Container(
         padding: const EdgeInsets.symmetric(
-            horizontal: ChallegeMetrics.tileHorizontalPadding,
-            vertical: ChallegeMetrics.tileVerticalPadding),
+            horizontal: ChallegeMetrics.tileHorizontalMargin,
+            vertical: ChallegeMetrics.tileVerticalMargin),
         decoration: BoxDecoration(
           color: ChallegeMetrics.iconColor,
           borderRadius: BorderRadius.circular(ChallegeMetrics.tileRadius),
