@@ -154,7 +154,7 @@ class _TreeNodeWidgetState extends State<_TreeNodeWidget> {
                                   turns: _isExpanded ? 0.0 : -0.25,
                                   duration: const Duration(milliseconds: 300),
                                   child: SvgPicture.asset(
-                                    'images/icons/tree_arrow.svg',
+                                    'assets/images/icons/tree_arrow.svg',
                                     colorFilter: const ColorFilter.mode(
                                       ChallegeMetrics.nodeTileIndicatorColor,
                                       BlendMode.srcIn,
@@ -190,7 +190,7 @@ class _TreeNodeWidgetState extends State<_TreeNodeWidget> {
                         if (isEnergy) ...[
                           const SizedBox(width: 4),
                           SvgPicture.asset(
-                            'images/icons/energy.svg',
+                            'assets/images/icons/energy.svg',
                             colorFilter: ColorFilter.mode(
                               ChallegeMetrics.energyIconColor,
                               BlendMode.srcIn,
@@ -202,7 +202,7 @@ class _TreeNodeWidgetState extends State<_TreeNodeWidget> {
                         if (isAlert) ...[
                           const SizedBox(width: 4),
                           SvgPicture.asset(
-                            'images/icons/alert.svg',
+                            'assets/images/icons/alert.svg',
                             colorFilter: ColorFilter.mode(
                               ChallegeMetrics.alertIconColor,
                               BlendMode.srcIn,
@@ -274,7 +274,7 @@ class _TreeNodeWidgetState extends State<_TreeNodeWidget> {
     );
     const iconSize = ChallegeMetrics.nodeTileIconSize;
     return SvgPicture.asset(
-      'images/icons/$iconName.svg',
+      'assets/images/icons/$iconName.svg',
       colorFilter: colorFilter,
       height: iconSize,
       width: iconSize,

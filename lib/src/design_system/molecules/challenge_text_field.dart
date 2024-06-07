@@ -17,7 +17,7 @@ class ChallengeTextField extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           prefixIcon: SvgPicture.asset(
-            'images/icons/search.svg',
+            'assets/images/icons/search.svg',
             colorFilter: ColorFilter.mode(
               ChallegeMetrics.textFieldIconColor,
               BlendMode.srcIn,

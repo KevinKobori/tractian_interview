@@ -32,7 +32,7 @@ class MenuListTile extends StatelessWidget {
             SvgPicture.asset(
               height: ChallegeMetrics.tileIconSize,
               width: ChallegeMetrics.tileIconSize,
-              'images/icons/unit.svg',
+              'assets/images/icons/unit.svg',
             ),
             const Gap(16),
             Text(

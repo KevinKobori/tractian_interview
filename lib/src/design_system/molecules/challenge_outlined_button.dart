@@ -32,7 +32,7 @@ class ChallengeOutlinedButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
-              'images/icons/$iconName.svg',
+              'assets/images/icons/$iconName.svg',
               colorFilter: ColorFilter.mode(
                 ChallegeMetrics.buttonTextColor,
                 BlendMode.srcIn,
