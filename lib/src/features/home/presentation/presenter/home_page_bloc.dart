@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tractian_interview/src/core/configuration/factories/challenge_factories.dart';
+import 'package:tractian_interview/src/core/configuration/factories/app_factories.dart';
 import 'package:tractian_interview/src/core/data/models/company_model.dart';
 import 'package:tractian_interview/src/core/domain/failures/domain_failure.dart';
 import 'package:tractian_interview/src/core/presentation/failures/domain_failure_to_ui_failure_extension.dart';
