@@ -42,8 +42,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState>
     await Navigator.push(
       event.context,
       MaterialPageRoute(
-          builder: (context) =>
-              ChallengeFactories.getAssetPage(event.companyId)),
+          builder: (context) => AppFactories.getAssetPage(event.companyId)),
     );
   }
 }

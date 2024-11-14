@@ -12,7 +12,7 @@ import 'package:tractian_interview/src/features/home/data/usecases/remote_load_a
 import 'package:tractian_interview/src/features/home/presentation/presenter/home_page_bloc.dart';
 import 'package:tractian_interview/src/features/home/presentation/ui/menu_page.dart';
 
-class ChallengeFactories {
+class AppFactories {
   static Widget getHomePage() {
     final loadAllCompaniesUnit =
         RemoteLoadAllCompaniesUnitUseCaseImpl(_getCompanyUnitRepository());
