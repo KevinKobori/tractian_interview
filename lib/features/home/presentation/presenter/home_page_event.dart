@@ -23,6 +23,7 @@ class PushToAssetPage extends HomePageEvent {
 
   @override
   List<Object?> get props => [
+        context,
         companyId,
       ];
 }
