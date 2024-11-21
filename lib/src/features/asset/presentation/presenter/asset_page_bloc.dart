@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tractian_interview/src/core/presentation/failures/domain_failure_to_ui_failure_extension.dart';
+import 'package:tractian_interview/core/presentation/failures/domain_failure_to_ui_failure_extension.dart';
 import 'package:tractian_interview/src/features/asset/data/managers/tree_manager.dart';
 import 'package:tractian_interview/src/features/asset/domain/usecases/build_asset_trees_usecase.dart';
 import 'package:tractian_interview/src/features/asset/domain/usecases/remote_load_company_assets_usecase.dart';

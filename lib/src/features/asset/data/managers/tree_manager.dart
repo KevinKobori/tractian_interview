@@ -1,4 +1,4 @@
-import 'package:tractian_interview/src/core/data/models/asset_model.dart';
+import 'package:tractian_interview/core/data/models/asset_model.dart';
 import 'package:tractian_interview/src/features/asset/data/models/asset_tree_node.dart';
 
 class TreeManager {

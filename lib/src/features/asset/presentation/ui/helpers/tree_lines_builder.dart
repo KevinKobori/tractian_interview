@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tractian_interview/src/design_system/challenge_metrics.dart';
+import 'package:tractian_interview/design_system/challenge_metrics.dart';
 
 class TreeLinesBuilder extends StatelessWidget {
   final bool isFirst;

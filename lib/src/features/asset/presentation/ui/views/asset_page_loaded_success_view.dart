@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tractian_interview/src/core/data/models/asset_model.dart';
-import 'package:tractian_interview/src/core/data/models/location_model.dart';
-import 'package:tractian_interview/src/design_system/challenge_metrics.dart';
-import 'package:tractian_interview/src/design_system/molecules/challenge_outlined_button.dart';
-import 'package:tractian_interview/src/design_system/molecules/challenge_text_field.dart';
-import 'package:tractian_interview/src/design_system/organisms/challenge_app_bar.dart';
+import 'package:tractian_interview/core/data/models/asset_model.dart';
+import 'package:tractian_interview/core/data/models/location_model.dart';
+import 'package:tractian_interview/design_system/challenge_metrics.dart';
+import 'package:tractian_interview/design_system/molecules/challenge_outlined_button.dart';
+import 'package:tractian_interview/design_system/molecules/challenge_text_field.dart';
+import 'package:tractian_interview/design_system/organisms/challenge_app_bar.dart';
 import 'package:tractian_interview/src/features/asset/data/managers/tree_manager.dart';
 import 'package:tractian_interview/src/features/asset/data/models/asset_tree_node.dart';
 import 'package:tractian_interview/src/features/asset/presentation/ui/helpers/tree_lines_builder.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tractian_interview/src/design_system/atoms/challenge_blanc_box.dart';
+import 'package:tractian_interview/design_system/atoms/challenge_blanc_box.dart';
 import 'package:tractian_interview/src/features/asset/presentation/presenter/asset_page_bloc.dart';
 import 'package:tractian_interview/src/features/asset/presentation/presenter/asset_page_event.dart';
 import 'package:tractian_interview/src/features/asset/presentation/presenter/asset_page_presenter.dart';
