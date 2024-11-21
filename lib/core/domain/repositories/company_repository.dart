@@ -4,7 +4,7 @@ import 'package:tractian_interview/core/data/models/company_model.dart';
 import 'package:tractian_interview/core/data/models/location_model.dart';
 import 'package:tractian_interview/core/domain/failures/domain_failure.dart';
 
-mixin CompanyUnitRepository {
+abstract interface class CompanyUnitRepository {
   Future<Either<DomainFailure, List<CompanyUnitModel>>> getAllCompanies();
 
   Future<Either<DomainFailure, List<LocationModel>>> getCompanyLocations(
